@@ -1,9 +1,7 @@
 package com.beam.compose_twitter_post_exercise
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.beam.compose_twitter_post_exercise.domain.data.PostIconAction
 import com.beam.compose_twitter_post_exercise.ui.theme.Compose_twitter_post_exerciseTheme
 
 @Composable
@@ -127,24 +126,41 @@ fun PostItemBody() {
 @Composable
 fun PostItemFooter() {
     Row(modifier = Modifier.fillMaxWidth()) {
-        PostItemIconAction(iconRes = R.drawable.ic_chat, modifier = Modifier.weight(1f))
-        PostItemIconAction(iconRes = R.drawable.ic_rt, modifier = Modifier.weight(1f))
-        PostItemIconAction(iconRes = R.drawable.ic_like, modifier = Modifier.weight(1f))
+        PostItemIconAction(
+            iconData = PostIconAction.CHAT,
+            modifier = Modifier.weight(1f)
+        )
+        PostItemIconAction(
+            iconData = PostIconAction.RT,
+            modifier = Modifier.weight(1f)
+        )
+        PostItemIconAction(
+            iconData = PostIconAction.LIKE,
+            modifier = Modifier.weight(1f)
+        )
     }
 }
 
 @Composable
-fun PostItemIconAction(@DrawableRes iconRes: Int, modifier: Modifier) {
-    var isEnable by rememberSaveable { mutableStateOf(false) }
+fun PostItemIconAction(
+    iconData: PostIconAction,
+    modifier: Modifier
+) {
+    var isFocused by rememberSaveable { mutableStateOf(false) }
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
-        IconButton(onClick = { /*TODO*/ }) {
+        val (iconRes, iconColor) = if (isFocused) {
+            iconData.focusIconRes to iconData.focusIconColor
+        } else {
+            iconData.unFocusIconRes to iconData.unFocusIconColor
+        }
+        IconButton(onClick = { isFocused = !isFocused }) {
             Icon(
                 painter = painterResource(id = iconRes),
                 contentDescription = "Chat icon",
-                tint = Color(0xFF89939B)
+                tint = iconColor
             )
         }
-        Text(text = "1", color = Color(0xFF89939B))
+        Text(text = if (isFocused) "2" else "1", color = Color(0xFF89939B))
     }
 }
 
