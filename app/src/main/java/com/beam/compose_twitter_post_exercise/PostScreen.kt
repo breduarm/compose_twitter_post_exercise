@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -42,7 +43,7 @@ fun PostScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF191F2A))
+            .background(Color(0xFF161D26))
     ) {
         Row(
             modifier = Modifier
@@ -53,7 +54,7 @@ fun PostScreen() {
             Spacer(modifier = Modifier.width(16.dp))
             PostItem()
         }
-        Divider(modifier = Modifier.fillMaxWidth(), color = Color(0xFF89939B))
+        Divider(modifier = Modifier.fillMaxWidth().height(0.5.dp), color = Color.Gray)
     }
 }
 
@@ -80,15 +81,15 @@ fun PostItem() {
 @Composable
 fun PostItemHeader() {
     Row {
-        Text(text = "Beam", fontWeight = FontWeight.Bold, color = Color.White)
+        Text(text = "Beam", fontWeight = FontWeight.ExtraBold, color = Color.White)
         Text(
             text = "@BryanArm",
-            color = Color(0xFF89939B),
+            color = Color.Gray,
             modifier = Modifier.padding(start = 12.dp)
         )
         Text(
             text = "4h",
-            color = Color(0xFF89939B),
+            color = Color.Gray,
             modifier = Modifier.padding(start = 12.dp)
         )
         Icon(
@@ -156,7 +157,7 @@ fun PostItemIconAction(
         IconButton(onClick = { isFocused = !isFocused }) {
             Icon(
                 painter = painterResource(id = iconRes),
-                contentDescription = "Chat icon",
+                contentDescription = "Social icon",
                 tint = iconColor
             )
         }
